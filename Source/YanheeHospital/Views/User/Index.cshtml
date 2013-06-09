@@ -1,0 +1,73 @@
+﻿@model YanheeHospital.ViewModels.UserIndexViewModel
+
+<div style="height:200px; border:1px solid Red;">
+    @using(Html.BeginForm("Create", "User")){
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>@Html.EditorFor(x => x.CurrentUser.Name)</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>@Html.EditorFor(x => x.CurrentUser.Email)</td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td>@Html.EditorFor(x => x.CurrentUser.Password)</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input type="submit" value="Create" /></td>
+            </tr>
+        </table>
+    }
+</div>
+<div>
+    <table>
+        <tr>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Email Sent Status</th>
+            <th>Email Sent Time</th>
+            <th>Answer Status</th>
+            <th>Answer Time</th>
+            <th>Quick Link</th>
+        </tr>
+        @for (int i = 0; i < Model.Users.Count; i++)
+        {
+            var item = Model.Users[i];
+            <tr>
+                <td>@(i + 1)</td>
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+                <td>@item.Password</td>
+                <td>
+                    @if (item.IsInvitationEmailSent == true)
+                    {
+                        @Html.ActionLink("Send Again", "SendEmail", new { id = item.Id })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Send Email", "SendEmail", new { id = item.Id })
+                    }
+                </td>
+                <td>@item.InvitationEmailSentTime</td>
+                <td>
+                    @if (item.IsAnswered == true)
+                    {
+                        @Html.ActionLink("View Answer", "ViewAnswer", new { id = item.Id })
+                    }
+                    else
+                    {
+                        @: No Answer
+                    }
+                </td>
+                <td>@item.AnswerTime</td>
+                <td>@Html.ActionLink("Quick Link", "CollectAnswer", new { id = item.Id, password = item.Password })</td>
+            </tr>
+        }
+    </table>
+</div>
+

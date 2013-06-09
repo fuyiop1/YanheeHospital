@@ -1,0 +1,14 @@
+2013/6/9 8:15:48: System.FormatException: The specified string is not in the form required for an e-mail address.
+   at System.Net.Mail.MailAddressParser.ParseAddress(String data, Boolean expectMultipleAddresses, Int32& index)
+   at System.Net.Mail.MailAddressParser.ParseAddress(String data)
+   at System.Net.Mail.MailAddress..ctor(String address, String displayName, Encoding displayNameEncoding)
+   at System.Net.Mail.Message..ctor(String from, String to)
+   at System.Net.Mail.MailMessage..ctor(String from, String to)
+   at System.Net.Mail.MailMessage..ctor(String from, String to, String subject, String body)
+   at YanheeHospital.Helpers.EmailHelper.SendEmail(User toUser) in C:\Work\YanheeHospital\Source\YanheeHospital\Helpers\EmailHelper.cs:line 43
+2013/6/9 8:16:58: System.Net.Mail.SmtpException: Syntax error in parameters or arguments. The server response was: mail from address must be same as authorization user
+   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at YanheeHospital.Helpers.EmailHelper.SendEmail(User toUser) in C:\Work\YanheeHospital\Source\YanheeHospital\Helpers\EmailHelper.cs:line 45
