@@ -21,6 +21,8 @@ namespace YanheeHospital
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
+            ModelBinders.Binders.Add(typeof(YanheeHospital.Models.UserAnswer), new YanheeHospital.Helpers.UserAnswerModelBinder());
+
             YanheeHospital.Helpers.LogHelper.LogFilePath = Server.MapPath("~/log.txt");
             YanheeHospital.Models.YanheeHospitalDbContextInitializer.InitDatabaseSetup();
 

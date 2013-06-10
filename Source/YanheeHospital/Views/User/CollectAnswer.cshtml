@@ -1,16 +1,7 @@
 ﻿@model YanheeHospital.ViewModels.UserCollectAnswerViewModel
 
 @section styles{
-    <style type="text/css">
-        input.short
-        {
-            width:120px;
-        }
-        label
-        {
-            text-align:right;
-        }
-    </style>
+    <link type="text/css" rel="Stylesheet" href="@Url.Content("~/Content/UserCollectAnswer.css")" />
 }
 
 @if (!Model.IsUserAuthenticated)
@@ -19,7 +10,7 @@
 }
 else
 {
-    if (Model.User.IsAnswered == true)
+    if (Model.User.IsAnswered == true && !Model.IsAdminViewAnswer)
     {
         <h2>您的信息已成功提交，请耐心等待回复...</h2>
     }
@@ -28,12 +19,22 @@ else
         using (Html.BeginForm("CollectAnswer", "User")) { 
             @Html.HiddenFor(x => x.UserAnswer.UserId)
             @Html.HiddenFor(x => x.IsUserAuthenticated)
+            @Html.HiddenFor(x => x.IsAdminViewAnswer)
             @Html.HiddenFor(x => x.User.Password)
             @Html.HiddenFor(x => x.User.IsAnswered)
             @Html.HiddenFor(x => x.User.Email)
             @Html.HiddenFor(x => x.User.Id)
             @Html.HiddenFor(x => x.User.Name)
             <table width="100%">
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><h2>然禧减肥代购（新客户填写）</h2></td>
+                    <td class="clear-fix">
+                        <div class="float-left" id="instruction-entrance">
+                            帮助信息
+                        </div>
+                    </td>
+                </tr>
                 <tr>
                     <td width="250"><label>邮寄地址</label></td>
                     <td width="310">@Html.TextBoxFor(x => x.UserAnswer.PostAddress)</td>
@@ -106,7 +107,7 @@ else
                     </td>
                     <td></td>
                 </tr>
-                <tr>
+                <tr class="group-row">
                     <td><label>是否食物/药物过敏</label></td>
                     <td>
                         <div class="radio-container">
@@ -121,7 +122,7 @@ else
                     <td>@Html.TextBoxFor(x => x.UserAnswer.AllergyDetail)</td>
                     <td>@Html.ValidationMessageFor(x => x.UserAnswer.AllergyDetail)</td>
                 </tr>
-                <tr>
+                <tr class="group-row">
                     <td>
                         <label>
                             是否有重大疾病
@@ -137,7 +138,7 @@ else
                     </td>
                     <td></td>
                 </tr>
-                <tr>
+                <tr class="group-row">
                     <td><label>是否曾服用过减肥药</label></td>
                     <td>
                         <div class="radio-container">
@@ -172,7 +173,7 @@ else
                     </td>
                     <td></td>
                 </tr>
-                <tr>
+                <tr class="group-row">
                     <td><label>是否长期服用其他的药物</label></td>
                     <td>
                         <div class="radio-container">
@@ -236,13 +237,24 @@ else
                     <td>@Html.ValidationMessageFor(x => x.UserAnswer.IdealWeight)</td>
                 </tr>
                 <tr>
-                    <td><label>想和医生说些什么</label></td>
+                    <td class="important-info" title="这一栏很重要，因为不能亲自到医院去只能代购拿表格给医生。除了上面的信息就全靠你自己的描述了，医生会根据你的描述开药。主要填写你的生活习惯，比如作息时间规律不规律，会不会定期做一些运动，饮食习惯（有些女孩子胃不太好的都可以写上）等等。如果有重大病史一定要写明白，特别是心脏，血糖，血压类的以及曾经的病史。这直接影响我们吃到的药的种类~~并写清是否痊愈。">
+                        <label>想和医生说些什么</label>
+                    </td>
                     <td>@Html.TextAreaFor(x => x.UserAnswer.MessageToDoctor)</td>
                     <td>@Html.ValidationMessageFor(x => x.UserAnswer.MessageToDoctor)</td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td><input type="submit" value="提交" /></td>
+                    <td>
+                        @if (Model.IsAdminViewAnswer)
+                        {
+                            @Html.ActionLink("返回", "Index")
+                        }
+                        else
+                        {
+                            <input type="submit" value="提交" />
+                        }
+                    </td>
                     <td></td>
                 </tr>
             </table>
@@ -250,27 +262,8 @@ else
     }
 }
 @section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/MyScripts/userCollectAnswer.js")"></script>
     <script type="text/javascript">
-        function initPage() {
-            $("input:radio[data-control]").click(function () {
-                showHideControls($(this));
-            });
-
-            function showHideControls(item) {
-                var controlName = item.data("control");
-                var itemValue = item.val();
-                var underControls = $("tr[data-under-control='" + controlName + "']");
-                if (itemValue == "true") {
-                    underControls.show(1000);
-                } else {
-                    underControls.hide();
-                }
-            }
-
-            $("input:radio[data-control]:checked").each(function () {
-                showHideControls($(this));
-            });
-        }
-        initPage();
+        userCollectAnswer.initPage();
     </script>
 }

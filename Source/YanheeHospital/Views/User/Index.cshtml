@@ -1,51 +1,36 @@
 ﻿@model YanheeHospital.ViewModels.UserIndexViewModel
 @section styles{
-    <style type="text/css">
-        label
-        {
-            text-align:right;
-        }
-        .data-view-table-container
-        {
-            padding-top:20px;
-        }
-        .data-view-table th, .data-view-table td
-        {
-            text-align:center;
-            padding:0;
-            border:1px solid #444;
-            height:25px;
-        }
-        .data-view-table tr:nth-child(even) td
-        {
-            background-color:#D3DCE0;
-        }
-    </style>
+    <link type="text/css" rel="Stylesheet" href="@Url.Content("~/Content/UserIndex.css")" />
 }
-<div>
-    @using(Html.BeginForm("Create", "User")){
-        <table>
-            <tr>
-                <td><label>姓名</label></td>
-                <td>@Html.EditorFor(x => x.CurrentUser.Name)</td>
-                <td>@Html.ValidationMessageFor(x => x.CurrentUser.Name)</td>
-            </tr>
-            <tr>
-                <td><label>邮箱</label></td>
-                <td>@Html.EditorFor(x => x.CurrentUser.Email)</td>
-                <td>@Html.ValidationMessageFor(x => x.CurrentUser.Email)</td>
-            </tr>
-            <tr>
-                <td><label>密码</label></td>
-                <td>@Html.EditorFor(x => x.CurrentUser.Password)</td>
-                <td>@Html.ValidationMessageFor(x => x.CurrentUser.Password)</td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td><input type="submit" value="添加" /></td>
-            </tr>
-        </table>
-    }
+<div class="clear-fix">
+    <div class="float-left">
+        @using(Html.BeginForm("Create", "User")){
+            <table>
+                <tr>
+                    <td><label>姓名</label></td>
+                    <td>@Html.EditorFor(x => x.CurrentUser.Name)</td>
+                    <td>@Html.ValidationMessageFor(x => x.CurrentUser.Name)</td>
+                </tr>
+                <tr>
+                    <td><label>邮箱</label></td>
+                    <td>@Html.EditorFor(x => x.CurrentUser.Email)</td>
+                    <td>@Html.ValidationMessageFor(x => x.CurrentUser.Email)</td>
+                </tr>
+                <tr>
+                    <td><label>密码</label></td>
+                    <td>@Html.EditorFor(x => x.CurrentUser.Password)</td>
+                    <td>@Html.ValidationMessageFor(x => x.CurrentUser.Password)</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" value="添加" /></td>
+                </tr>
+            </table>
+        }
+    </div>
+    <div class="float-right form-title">
+        管理您的客户
+    </div>
 </div>
 <div class="data-view-table-container">
     <table class="data-view-table" width="100%">
@@ -82,7 +67,7 @@
                 <td>
                     @if (item.IsAnswered == true)
                     {
-                        @Html.ActionLink("查看答案", "ViewAnswer", new { id = item.Id })
+                        @Html.ActionLink("查看答案", "ViewAnswer", new { id = item.Id }, new { target = "_blank" })
                     }
                     else
                     {
@@ -90,7 +75,7 @@
                     }
                 </td>
                 <td>@item.AnswerTime</td>
-                <td>@Html.ActionLink("作答链接", "CollectAnswer", new { id = item.Id, password = item.Password })</td>
+                <td>@Html.ActionLink("作答链接", "CollectAnswer", new { id = item.Id, password = item.Password }, new { target = "_blank" })</td>
             </tr>
         }
     </table>

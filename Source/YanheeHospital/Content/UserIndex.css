@@ -1,0 +1,24 @@
+﻿label
+{
+    text-align: right;
+}
+.data-view-table-container
+{
+    padding-top: 20px;
+}
+.data-view-table th, .data-view-table td
+{
+    text-align: center;
+    padding: 0;
+    border: 1px solid #444;
+    height: 25px;
+}
+.data-view-table tr:nth-child(even) td
+{
+    background-color: #e8edf0;
+}
+.form-title
+{
+    font-size: 4em;
+    padding-top: 35px;
+}

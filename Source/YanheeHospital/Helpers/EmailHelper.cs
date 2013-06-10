@@ -41,6 +41,7 @@ namespace YanheeHospital.Helpers
 
                 var emailBody = string.Format(EmailBody, toUser.Name, toUser.Id, toUser.Password);
                 var mailMessage = new MailMessage(FromEmailUser, toUser.Email, EmailSubject, emailBody);
+                mailMessage.IsBodyHtml = true;
 
                 smtpClient.Send(mailMessage);
                 result = true;

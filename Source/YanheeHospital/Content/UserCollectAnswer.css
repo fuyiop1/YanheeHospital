@@ -1,0 +1,30 @@
+﻿input.short
+{
+    width: 120px;
+}
+label
+{
+    text-align: right;
+}
+.disabled
+{
+    background-color: #f2f5ef;
+}
+.group-row td
+{
+    border-top: 1px dashed #aaa;
+}
+.important-info, .important-info label
+{
+    cursor: help;
+}
+.important-info
+{
+    background:url(../Images/importantInfoIcon.png) no-repeat 252px center;
+}
+#instruction-entrance
+{
+    cursor:pointer;
+    padding-left:25px;
+    background:url(../Images/importantInfoIcon.png) no-repeat left center;
+}

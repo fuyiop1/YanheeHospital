@@ -64,7 +64,8 @@ namespace YanheeHospital.Controllers
                 viewModel.UserAnswer = new UserAnswer()
                 {
                     UserId = id,
-                    ChineseName = user.Name
+                    ChineseName = user.Name,
+                    EatMostDinner = (int) Dinner.Lunch
                 };
             }
 
@@ -92,6 +93,21 @@ namespace YanheeHospital.Controllers
             {
                 return View(viewModel);
             }
+        }
+
+        public ActionResult ViewAnswer(int id)
+        {
+            var viewModel = new UserCollectAnswerViewModel();
+            viewModel.IsAdminViewAnswer = true;
+            var user = DbContext.Users.Find(id);
+            var userAnswer = DbContext.UserAnswers.Find(id);
+            if (user != null && userAnswer != null)
+            {
+                viewModel.IsUserAuthenticated = true;
+                viewModel.User = user;
+                viewModel.UserAnswer = userAnswer;
+            }
+            return View("CollectAnswer", viewModel);
         }
 
         private bool ValidateUserAnswer(UserAnswer userAnswer)

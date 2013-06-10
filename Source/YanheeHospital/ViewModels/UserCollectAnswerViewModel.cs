@@ -17,6 +17,7 @@ namespace YanheeHospital.ViewModels
         }
 
         public bool IsUserAuthenticated { get; set; }
+        public bool IsAdminViewAnswer { get; set; }
         public User User { get; set; }
         public UserAnswer UserAnswer { get; set; }
 
