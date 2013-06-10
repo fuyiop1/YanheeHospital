@@ -2,13 +2,13 @@
 
 @if (!Model.IsUserAuthenticated)
 {
-    <h2>Sorry, you are not allowed to access this page...</h2>
+    <h2>对不起, 您没有权限打开此页面...</h2>
 }
 else
 {
     if (Model.User.IsAnswered == true)
     {
-        <h2>We have collected your info, please wait for the reply!</h2>
+        <h2>您的信息已成功提交，请耐心等待回复...</h2>
     }
     else
     {
@@ -16,228 +16,197 @@ else
             @Html.HiddenFor(x => x.UserAnswer.UserId)
             <table>
                 <tr>
-                    <td>邮寄地址</td>
+                    <td><label>邮寄地址</label></td>
+                    <td>@Html.TextBoxFor(x => x.UserAnswer.PostAddress)</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label>电话</label></td>
+                    <td>@Html.TextBoxFor(x => x.UserAnswer.Telephone)</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label>诊疗卡号</label></td>
+                    <td>@Html.TextBoxFor(x => x.UserAnswer.TherapyCardId)</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label>中文姓名/性别</label></td>
+                    <td>
+                        <div>
+                            <div>
+                                @Html.TextBoxFor(x => x.UserAnswer.ChineseName)
+                            </div>
+                            <div>
+                                @foreach (var item in Model.GenderDictionary)
+                                {
+                                    <input type="radio" name="UserAnswer.Gender" value="@item.Key" @(item.Key == Model.UserAnswer.Gender ? "checked='checked'" : string.Empty) /> @item.Value
+                                }
+                            </div>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label>出生年-月-日</label></td>
+                    <td>@Html.TextBoxFor(x => x.UserAnswer.Birthdate)</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label>身高/体重</label></td>
+                    <td>
+                        <div>
+                            <div>@Html.TextBoxFor(x => x.UserAnswer.Height) Cm</div>
+                            <div>@Html.TextBoxFor(x => x.UserAnswer.Weight) Kg</div>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label>一天中哪餐饭吃得最多</label></td>
+                    <td>
+                        @foreach (var item in Model.DinnerDictionary)
+                        {
+                            <input type="radio" name="UserAnswer.EatMostDinner" value="@item.Key" @(item.Key == Model.UserAnswer.EatMostDinner ? "checked='checked'" : string.Empty) /> @item.Value
+                        }
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label>喜不喜欢吃零食</label></td>
+                    <td>
+                        <input type="radio" name="UserAnswer.IsLikeSnack" value="true" /> 喜欢
+                        <input type="radio" name="UserAnswer.IsLikeSnack" value="false" checked="checked" /> 不喜欢
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label>是否食物/药物过敏</label></td>
+                    <td>
+                        <input type="radio" name="UserAnswer.IsAllergic" value="true" /> 是
+                        <input type="radio" name="UserAnswer.IsAllergic" value="false" checked="checked" /> 否
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label>过敏食物/药名</label></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>电话</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>诊疗卡号</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>中文姓名/性别</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>出生年-月-日</td>
-                    <td></td>
+                    <td>
+                        <label>
+                            是否有重大疾病
+                            <br />
+                            (如：心脏病，糖尿病，血压高低)
+                        </label>
+                    </td>
+                    <td>
+                        <input type="radio" name="UserAnswer.HaveSeriousDesease" value="true" /> 是
+                        <input type="radio" name="UserAnswer.HaveSeriousDesease" value="false" checked="checked" /> 否
+                    </td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>身高/体重</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>一天中哪餐饭吃得最多</td>
-                    <td></td>
+                    <td><label>是否曾服用过减肥药</label></td>
+                    <td>
+                        <input type="radio" name="UserAnswer.HavePreviousDietMedicine" value="true" /> 是
+                        <input type="radio" name="UserAnswer.HavePreviousDietMedicine" value="false" checked="checked" /> 否
+                    </td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>喜不喜欢吃零食</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>是否食物/药物过敏</td>
-                    <td></td>
+                    <td><label>服用过减肥药药名</label></td>
+                    <td>@Html.TextBoxFor(x => x.UserAnswer.PreviousDietMedicineDetail)</td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>过敏食物/药名</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>是否有重大疾病</td>
-                    <td></td>
+                    <td><label>曾服用时间</label></td>
+                    <td>@Html.TextBoxFor(x => x.UserAnswer.PreviousDietMedicineDuringTime)</td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>是否曾服用过减肥药</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>服用过减肥药药名</td>
-                    <td></td>
+                    <td><label>到目前为止已停药多久</label></td>
+                    <td>@Html.TextBoxFor(x => x.UserAnswer.PreviousDietMedicineStopTime)</td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td>曾服用时间</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
+                    <td><label>服药期间是否有不良的副作用</label></td>
+                    <td>
+                        <input type="radio" name="UserAnswer.IsPreviousDietMedicineHaveSideEffect" value="true" /> 是
+                        <input type="radio" name="UserAnswer.IsPreviousDietMedicineHaveSideEffect" value="false" checked="checked" /> 否
+                    </td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
+                    <td><label>是否长期服用其他的药物</label></td>
+                    <td>
+                        <input type="radio" name="UserAnswer.IsHavingOtherMedicine" value="true" /> 是
+                        <input type="radio" name="UserAnswer.IsHavingOtherMedicine" value="false" checked="checked" /> 否
+                    </td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
+                    <td><label>是否抽烟喝酒</label></td>
+                    <td>
+                        <div>
+                            <div>
+                                <input type="radio" name="UserAnswer.IsSmoking" value="true" /> 抽烟
+                                <input type="radio" name="UserAnswer.IsSmoking" value="false" checked="checked" /> 不抽烟
+                            </div>
+                            <div>
+                                <input type="radio" name="UserAnswer.IsDrinkingAlcohol" value="true" /> 喝酒
+                                <input type="radio" name="UserAnswer.IsDrinkingAlcohol" value="false" checked="checked" /> 不喝酒
+                            </div>
+                        </div>
+                    </td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
+                    <td><label>是否便秘/失眠</label></td>
+                    <td>
+                        <div>
+                            <div>
+                                <input type="radio" name="UserAnswer.IsConstipate" value="true" /> 便秘
+                                <input type="radio" name="UserAnswer.IsConstipate" value="false" checked="checked" /> 不便秘
+                            </div>
+                            <div>
+                                <input type="radio" name="UserAnswer.IsInsomnic" value="true" /> 失眠
+                                <input type="radio" name="UserAnswer.IsInsomnic" value="false" checked="checked" /> 不失眠
+                            </div>
+                        </div>
+                    </td>
                     <td></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
+                    <td><label>平时一般几点睡觉？</label></td>
+                    <td>@Html.TextBoxFor(x => x.UserAnswer.SleepTime)</td>
                     <td></td>
                 </tr>
                 <tr>
+                    <td>
+                        <label>
+                            这次想购买几个疗程的减肥药
+                            <br />
+                            (一个疗程是 28 天的药量)
+                        </label>
+                    </td>
+                    <td>@Html.TextBoxFor(x => x.UserAnswer.ExpectedDietMedicineTherapy)</td>
                     <td></td>
+                </tr>
+                <tr>
+                    <td><label>理想体重</label></td>
+                    <td>@Html.TextBoxFor(x => x.UserAnswer.IdealWeight)Kg</td>
                     <td></td>
+                </tr>
+                <tr>
+                    <td><label>想和医生说些什么</label></td>
+                    <td>@Html.TextAreaFor(x => x.UserAnswer.MessageToDoctor)Kg</td>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
+                    <td><input type="submit" value="提交" /></td>
                     <td></td>
                 </tr>
             </table>

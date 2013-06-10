@@ -1,39 +1,42 @@
 ﻿@model YanheeHospital.ViewModels.UserIndexViewModel
 
-<div style="height:200px; border:1px solid Red;">
+<div>
     @using(Html.BeginForm("Create", "User")){
         <table>
             <tr>
-                <td>Name</td>
+                <td><label>姓名</label></td>
                 <td>@Html.EditorFor(x => x.CurrentUser.Name)</td>
+                <td>@Html.ValidationMessageFor(x => x.CurrentUser.Name)</td>
             </tr>
             <tr>
-                <td>Email</td>
+                <td><label>邮箱</label></td>
                 <td>@Html.EditorFor(x => x.CurrentUser.Email)</td>
+                <td>@Html.ValidationMessageFor(x => x.CurrentUser.Email)</td>
             </tr>
             <tr>
-                <td>Password</td>
+                <td><label>密码</label></td>
                 <td>@Html.EditorFor(x => x.CurrentUser.Password)</td>
+                <td>@Html.ValidationMessageFor(x => x.CurrentUser.Password)</td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td><input type="submit" value="Create" /></td>
+                <td><input type="submit" value="添加" /></td>
             </tr>
         </table>
     }
 </div>
 <div>
-    <table>
+    <table width="100%">
         <tr>
-            <th>No.</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Email Sent Status</th>
-            <th>Email Sent Time</th>
-            <th>Answer Status</th>
-            <th>Answer Time</th>
-            <th>Quick Link</th>
+            <th>序号</th>
+            <th>姓名</th>
+            <th>邮箱</th>
+            <th>密码</th>
+            <th>发送状态</th>
+            <th>发送时间</th>
+            <th>作答状态</th>
+            <th>作答时间</th>
+            <th>作答链接</th>
         </tr>
         @for (int i = 0; i < Model.Users.Count; i++)
         {

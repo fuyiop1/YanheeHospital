@@ -24,12 +24,20 @@ namespace YanheeHospital.Controllers
         [HttpPost]
         public ActionResult Create(UserIndexViewModel viewModel)
         {
-            if (viewModel != null && viewModel.CurrentUser != null)
+            if (ModelState.IsValid)
             {
-                DbContext.Users.Add(viewModel.CurrentUser);
-                DbContext.SaveChanges();
+                if (viewModel != null && viewModel.CurrentUser != null)
+                {
+                    DbContext.Users.Add(viewModel.CurrentUser);
+                    DbContext.SaveChanges();
+                }
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            else
+            {
+                viewModel.Users = DbContext.Users.ToList();
+                return View("Index", viewModel);
+            }
         }
 
         public ActionResult SendEmail(int id)
@@ -47,6 +55,8 @@ namespace YanheeHospital.Controllers
         public ActionResult CollectAnswer(int id, string password)
         {
             var viewModel = new UserCollectAnswerViewModel();
+            viewModel.GenderDictionary = EnumHelper.ConvertEnumToDictionary(typeof(Gender));
+            viewModel.DinnerDictionary = EnumHelper.ConvertEnumToDictionary(typeof(Dinner));
             var user = DbContext.Users.Find(id);
             if (user != null && user.Password == password)
             {

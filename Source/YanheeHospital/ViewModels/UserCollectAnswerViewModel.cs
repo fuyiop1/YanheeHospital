@@ -11,5 +11,9 @@ namespace YanheeHospital.ViewModels
         public bool IsUserAuthenticated { get; set; }
         public User User { get; set; }
         public UserAnswer UserAnswer { get; set; }
+
+        public Dictionary<int, string> GenderDictionary { get; set; }
+        public Dictionary<int, string> DinnerDictionary { get; set; }
+
     }
 }
