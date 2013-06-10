@@ -9,6 +9,9 @@ namespace YanheeHospital.ViewModels
 {
     public class UserCollectAnswerViewModel
     {
+        public int UserBirthdateYear { get; set; }
+        public int UserBirthdateMonth { get; set; }
+        public int UserBirthdateDay { get; set; }
 
         public UserCollectAnswerViewModel()
         {

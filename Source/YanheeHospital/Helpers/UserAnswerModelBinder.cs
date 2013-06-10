@@ -17,42 +17,25 @@ namespace YanheeHospital.Helpers
             base.SetProperty(controllerContext, bindingContext, propertyDescriptor, value);
             if (!bindingContext.ModelState.IsValidField("UserAnswer." + propertyDescriptor.Name))
             {
+                var errorMessage = string.Empty;
                 switch (propertyDescriptor.Name)
                 {
                     case "Height":
-                    case "Weight":
-                    case "ExpectedDietMedicineTherapy":
-                    case "IdealWeight":
-                        RegularExpressionAttribute regularExpressionAttribute = null;
-                        try
-                        {
-                            regularExpressionAttribute = propertyDescriptor.Attributes[typeof(RegularExpressionAttribute)] as RegularExpressionAttribute;
-                        }
-                        catch (Exception)
-                        {
-                        }
-                        if (regularExpressionAttribute != null)
-                        {
-                            bindingContext.ModelState.AddModelError("UserAnswer." + propertyDescriptor.Name, regularExpressionAttribute.ErrorMessage);
-                        }
+                        errorMessage = "请输入身高数值";
                         break;
-                    case "Birthdate":
-                        DataTypeAttribute dataTypeAttribute = null;
-                        try
-                        {
-                            dataTypeAttribute = propertyDescriptor.Attributes[typeof(DataTypeAttribute)] as DataTypeAttribute;
-                        }
-                        catch (Exception)
-                        {
-                        }
-                        if (dataTypeAttribute != null)
-                        {
-                            bindingContext.ModelState.AddModelError("UserAnswer." + propertyDescriptor.Name, dataTypeAttribute.ErrorMessage);
-                        }
+                    case "Weight":
+                        errorMessage = "请输入体重数值";
+                        break;
+                    case "ExpectedDietMedicineTherapy":
+                        errorMessage = "请输入数值";
+                        break;
+                    case "IdealWeight":
+                        errorMessage = "请输入理想体重数值";
                         break;
                     default:
                         break;
                 }
+                bindingContext.ModelState.AddModelError(string.Format("{0}.{1}", bindingContext.ModelName, propertyDescriptor.Name), errorMessage);
             }
             
         }

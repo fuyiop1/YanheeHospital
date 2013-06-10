@@ -75,7 +75,7 @@ namespace YanheeHospital.Controllers
         [HttpPost]
         public ActionResult CollectAnswer(UserCollectAnswerViewModel viewModel)
         {
-            if (ModelState.IsValid & ValidateUserAnswer(viewModel.UserAnswer))
+            if (ModelState.IsValid & ValidateBirthDate(viewModel) & ValidateUserAnswer(viewModel.UserAnswer))
             {
                 var id = viewModel.UserAnswer.UserId;
                 var password = viewModel.User.Password;
@@ -106,8 +106,31 @@ namespace YanheeHospital.Controllers
                 viewModel.IsUserAuthenticated = true;
                 viewModel.User = user;
                 viewModel.UserAnswer = userAnswer;
+
+                if (userAnswer.Birthdate.HasValue)
+                {
+                    viewModel.UserBirthdateYear = userAnswer.Birthdate.Value.Year;
+                    viewModel.UserBirthdateMonth = userAnswer.Birthdate.Value.Month;
+                    viewModel.UserBirthdateDay = userAnswer.Birthdate.Value.Day;
+                }
+
             }
             return View("CollectAnswer", viewModel);
+        }
+
+        private bool ValidateBirthDate(UserCollectAnswerViewModel viewModel)
+        {
+            var result = true;
+            try
+            {
+                viewModel.UserAnswer.Birthdate = new DateTime(viewModel.UserBirthdateYear, viewModel.UserBirthdateMonth, viewModel.UserBirthdateDay);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("UserAnswer.Birthdate", "该日期不存在");
+                result = false;
+            }
+            return result;
         }
 
         private bool ValidateUserAnswer(UserAnswer userAnswer)
@@ -116,6 +139,7 @@ namespace YanheeHospital.Controllers
 
             if (userAnswer != null)
             {
+
                 if (userAnswer.IsAllergic)
                 {
                     if (string.IsNullOrWhiteSpace(userAnswer.AllergyDetail))

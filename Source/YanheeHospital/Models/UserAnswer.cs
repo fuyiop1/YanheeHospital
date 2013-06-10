@@ -31,16 +31,14 @@ namespace YanheeHospital.Models
 
         public int Gender { get; set; }
 
-        [Required(ErrorMessage = "请输入出生日期")]
-        [DataType(DataType.Date, ErrorMessage = "请输入正确的日期格式")]
         public Nullable<DateTime> Birthdate { get; set; }
 
         [Required(ErrorMessage = "请输入身高")]
-        [RegularExpression("^[-+]?\\d+(\\.\\d+)?$", ErrorMessage = "请输入身高数字（正数）")]
+        [Range(0.0, double.MaxValue, ErrorMessage="请输入身高数值（正数）")]
         public Nullable<double> Height { get; set; }
 
         [Required(ErrorMessage = "请输入体重")]
-        [RegularExpression("^[-+]?\\d+(\\.\\d+)?$", ErrorMessage = "请输入体重数字（正数）")]
+        [Range(0.0, double.MaxValue, ErrorMessage = "请输入体重数值（正数）")]
         public Nullable<double> Weight { get; set; }
 
         public int EatMostDinner { get; set; }
@@ -81,13 +79,13 @@ namespace YanheeHospital.Models
 
         [Required(ErrorMessage = "请输入睡觉时间")]
         public string SleepTime { get; set; }
-        
+
         [Required(ErrorMessage = "请输入需要购买的疗程")]
-        [RegularExpression("^\\+?[1-9][0-9]*$", ErrorMessage = "请输入正整数")]
+        [Range(0, int.MaxValue, ErrorMessage = "请输入正数")]
         public Nullable<int> ExpectedDietMedicineTherapy { get; set; }
 
-        [Required(ErrorMessage = "请输入期望体重")]
-        [RegularExpression("^[-+]?\\d+(\\.\\d+)?$", ErrorMessage = "请输入数字（正数）")]
+        [Required(ErrorMessage = "请输入理想体重")]
+        [Range(0.0, double.MaxValue, ErrorMessage = "请输入理想体重数值（正数）")]
         public Nullable<double> IdealWeight { get; set; }
 
         [Required(ErrorMessage = "请输入您想对医生说的话")]

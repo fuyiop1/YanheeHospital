@@ -21,7 +21,7 @@
         });
 
         if ($("#IsAdminViewAnswer").val().toLowerCase() == "true") {
-            $("input, textarea").addClass("disabled").attr("disabled", "disabled");
+            $("input, textarea, select").addClass("disabled").attr("disabled", "disabled");
         }
 
         $("#instruction-entrance").colorbox({

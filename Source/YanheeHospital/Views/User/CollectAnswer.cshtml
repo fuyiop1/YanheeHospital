@@ -30,9 +30,16 @@ else
                     <td>&nbsp;</td>
                     <td><h2>然禧减肥代购（新客户填写）</h2></td>
                     <td class="clear-fix">
-                        <div class="float-left" id="instruction-entrance">
-                            帮助信息
-                        </div>
+                        @if (Model.IsAdminViewAnswer)
+                        {
+                            @: &nbsp;
+                        }
+                        else
+                        {
+                            <div class="float-left" id="instruction-entrance">
+                                帮助信息
+                            </div>
+                        }
                     </td>
                 </tr>
                 <tr>
@@ -69,7 +76,27 @@ else
                 </tr>
                 <tr>
                     <td><label>出生年/月/日</label></td>
-                    <td>@Html.TextBoxFor(x => x.UserAnswer.Birthdate, new { @class = "short" })</td>
+                    @*<td>@Html.TextBoxFor(x => x.UserAnswer.Birthdate, new { @class = "short" })</td>*@
+                    <td>
+                        <select name="UserBirthdateYear">
+                            @for (int i = DateTime.Now.Year; i > 1900; i--)
+                            {
+                                <option value="@i" @(Model.UserBirthdateYear == i ? "selected='selected'" : string.Empty)>@i</option>
+                            }
+                        </select>年
+                        <select name="UserBirthdateMonth">
+                            @for (int i = 1; i <= 12; i++)
+                            {
+                                <option value="@i" @(Model.UserBirthdateMonth == i ? "selected='selected'" : string.Empty)>@i</option>
+                            }
+                        </select>月
+                        <select name="UserBirthdateDay">
+                            @for (int i = 1; i <= 31; i++)
+                            {
+                                <option value="@i" @(Model.UserBirthdateDay == i ? "selected='selected'" : string.Empty)>@i</option>
+                            }
+                        </select>日
+                    </td>
                     <td>@Html.ValidationMessageFor(x => x.UserAnswer.Birthdate)</td>
                 </tr>
                 <tr>
@@ -237,9 +264,18 @@ else
                     <td>@Html.ValidationMessageFor(x => x.UserAnswer.IdealWeight)</td>
                 </tr>
                 <tr>
-                    <td class="important-info" title="这一栏很重要，因为不能亲自到医院去只能代购拿表格给医生。除了上面的信息就全靠你自己的描述了，医生会根据你的描述开药。主要填写你的生活习惯，比如作息时间规律不规律，会不会定期做一些运动，饮食习惯（有些女孩子胃不太好的都可以写上）等等。如果有重大病史一定要写明白，特别是心脏，血糖，血压类的以及曾经的病史。这直接影响我们吃到的药的种类~~并写清是否痊愈。">
-                        <label>想和医生说些什么</label>
-                    </td>
+                    @if (Model.IsAdminViewAnswer)
+                    {
+                        <td>
+                            <label>想和医生说些什么</label>
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="important-info" title="这一栏很重要，因为不能亲自到医院去只能代购拿表格给医生。除了上面的信息就全靠你自己的描述了，医生会根据你的描述开药。主要填写你的生活习惯，比如作息时间规律不规律，会不会定期做一些运动，饮食习惯（有些女孩子胃不太好的都可以写上）等等。如果有重大病史一定要写明白，特别是心脏，血糖，血压类的以及曾经的病史。这直接影响我们吃到的药的种类~~并写清是否痊愈。">
+                            <label>想和医生说些什么</label>
+                        </td>
+                    }
                     <td>@Html.TextAreaFor(x => x.UserAnswer.MessageToDoctor)</td>
                     <td>@Html.ValidationMessageFor(x => x.UserAnswer.MessageToDoctor)</td>
                 </tr>

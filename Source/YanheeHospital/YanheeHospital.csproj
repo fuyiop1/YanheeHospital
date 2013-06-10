@@ -237,6 +237,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\importantInfoIcon.png" />
     <Content Include="Images\yanheeHospitalLogo.png" />
+    <Content Include="index.htm" />
     <Content Include="Instruction.htm" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
