@@ -3,6 +3,7 @@
     <head>
         <title>Yanhee Hospital</title>
         <link type="text/css" rel="Stylesheet" href="@Url.Content("~/Content/Site.css")" />
+        @RenderSection("styles", required: false)
     </head>
     <body>
         <div id="header" class="content-wrapper">
@@ -13,8 +14,8 @@
                 @RenderBody()
             </div>
         </div>
-        <div id="footer">
-            
+        <div id="footer" class="content-wrapper">
+            <p>&copy; @DateTime.Now.Year - Yanhee Hospital</p>
         </div>
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.8.20.min.js")"></script>

@@ -5,6 +5,11 @@
     padding: 0;
 }
 
+body, input, select, textarea
+{
+    font-family:Microsoft JhengHei;
+}
+
 body
 {
     border-top: solid 10px #000;
@@ -55,8 +60,8 @@ a:hover
 h1, h2, h3, h4, h5, h6
 {
     color: #000;
-    margin-bottom: 0;
-    padding-bottom: 0;
+    margin: 0;
+    padding: 0;
 }
 
 h1
@@ -108,6 +113,7 @@ h5 a:link, h5 a:visited, h5 a:active
     background-color: #efeeef;
     clear: both;
     padding-bottom: 35px;
+    padding-top:20px;
 }
 
 label
@@ -136,7 +142,7 @@ input, textarea
 textarea
 {
     font-family: inherit;
-    width: 500px;
+    resize: none;
 }
 
 input:focus, textarea:focus
@@ -144,7 +150,7 @@ input:focus, textarea:focus
     border: 1px solid #7ac0da;
 }
 
-input[type="checkbox"]
+input[type="checkbox"], input[type="radio"]
 {
     background: transparent;
     border: inherit;
@@ -161,6 +167,7 @@ input[type="submit"], input[type="button"], button
     padding: 7px;
     margin-right: 8px;
     width: auto;
+    min-width:70px;
 }
 
 td input[type="submit"], td input[type="button"], td button
@@ -168,6 +175,17 @@ td input[type="submit"], td input[type="button"], td button
     font-size: 1em;
     padding: 4px;
     margin-right: 4px;
+}
+
+.radio-container
+{
+    padding-top:11px;
+    padding-bottom:11px;
+}
+
+.radio-container-non-first
+{
+    padding-left:30px;
 }
 
 /* info and errors */

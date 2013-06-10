@@ -16,21 +16,30 @@ namespace YanheeHospital.Models
 
         public User User { get; set; }
 
+        [Required(ErrorMessage = "请输入邮寄地址")]
         public string PostAddress { get; set; }
 
+        [Required(ErrorMessage = "请输入电话号码")]
+        [DataType(DataType.PhoneNumber, ErrorMessage = "请输入正确格式的电话号码")]
         public string Telephone { get; set; }
 
+        [Required(ErrorMessage = "请输入诊疗卡号")]
         public string TherapyCardId { get; set; }
 
+        [Required(ErrorMessage = "请输入中文名字")]
         public string ChineseName { get; set; }
 
         public int Gender { get; set; }
 
-        public DateTime Birthdate { get; set; }
+        [Required(ErrorMessage = "请输入出生日期")]
+        [DataType(DataType.Date, ErrorMessage = "请输入正确的日期格式")]
+        public Nullable<DateTime> Birthdate { get; set; }
 
-        public double Height { get; set; }
+        [Required(ErrorMessage = "请输入身高")]
+        public Nullable<double> Height { get; set; }
 
-        public double Weight { get; set; }
+        [Required(ErrorMessage = "请输入体重")]
+        public Nullable<double> Weight { get; set; }
 
         public int EatMostDinner { get; set; }
 
@@ -68,12 +77,16 @@ namespace YanheeHospital.Models
 
         public bool IsInsomnic { get; set; }
 
+        [Required(ErrorMessage = "请输入睡觉时间")]
         public string SleepTime { get; set; }
 
-        public int ExpectedDietMedicineTherapy { get; set; }
+        [Required(ErrorMessage = "请输入需要购买的疗程")]
+        public Nullable<int> ExpectedDietMedicineTherapy { get; set; }
 
-        public double IdealWeight { get; set; }
+        [Required(ErrorMessage = "请输入期望体重")]
+        public Nullable<double> IdealWeight { get; set; }
 
+        [Required(ErrorMessage = "请输入您想对医生说的话")]
         public string MessageToDoctor { get; set; }
 
     }

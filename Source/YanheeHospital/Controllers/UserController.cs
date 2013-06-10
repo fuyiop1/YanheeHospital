@@ -55,8 +55,7 @@ namespace YanheeHospital.Controllers
         public ActionResult CollectAnswer(int id, string password)
         {
             var viewModel = new UserCollectAnswerViewModel();
-            viewModel.GenderDictionary = EnumHelper.ConvertEnumToDictionary(typeof(Gender));
-            viewModel.DinnerDictionary = EnumHelper.ConvertEnumToDictionary(typeof(Dinner));
+            
             var user = DbContext.Users.Find(id);
             if (user != null && user.Password == password)
             {
@@ -75,8 +74,74 @@ namespace YanheeHospital.Controllers
         [HttpPost]
         public ActionResult CollectAnswer(UserCollectAnswerViewModel viewModel)
         {
+            if (ModelState.IsValid & ValidateUserAnswer(viewModel.UserAnswer))
+            {
+                var id = viewModel.UserAnswer.UserId;
+                var password = viewModel.User.Password;
+                DbContext.UserAnswers.Add(viewModel.UserAnswer);
+                var user = DbContext.Users.Find(id);
+                if (user != null)
+                {
+                    user.IsAnswered = true;
+                    user.AnswerTime = DateTime.Now;
+                }
+                DbContext.SaveChanges();
+                return RedirectToAction("CollectAnswer", new { id = id, password = password });
+            }
+            else
+            {
+                return View(viewModel);
+            }
+        }
 
-            return View();
+        private bool ValidateUserAnswer(UserAnswer userAnswer)
+        {
+            var result = true;
+
+            if (userAnswer != null)
+            {
+                if (userAnswer.IsAllergic)
+                {
+                    if (string.IsNullOrWhiteSpace(userAnswer.AllergyDetail))
+                    {
+                        ModelState.AddModelError("UserAnswer.AllergyDetail", "请输入过敏药物/食物");
+                        result = false;
+                    }
+                }
+                else
+                {
+                    userAnswer.AllergyDetail = null;
+                }
+
+                if (userAnswer.HavePreviousDietMedicine)
+                {
+                    if (string.IsNullOrWhiteSpace(userAnswer.PreviousDietMedicineDetail))
+                    {
+                        ModelState.AddModelError("UserAnswer.PreviousDietMedicineDetail", "请输入减肥药名称");
+                        result = false;
+                    }
+                    if (string.IsNullOrWhiteSpace(userAnswer.PreviousDietMedicineDuringTime))
+                    {
+                        ModelState.AddModelError("UserAnswer.PreviousDietMedicineDuringTime", "请输入服用时间");
+                        result = false;
+                    }
+                    if (string.IsNullOrWhiteSpace(userAnswer.PreviousDietMedicineStopTime))
+                    {
+                        ModelState.AddModelError("UserAnswer.PreviousDietMedicineStopTime", "请输入已停药多久");
+                        result = false;
+                    }
+                }
+                else
+                {
+                    userAnswer.PreviousDietMedicineDetail = null;
+                    userAnswer.PreviousDietMedicineDuringTime = null;
+                    userAnswer.PreviousDietMedicineStopTime = null;
+                    userAnswer.IsPreviousDietMedicineHaveSideEffect = false;
+                }
+
+            }
+
+            return result;
         }
 
     }

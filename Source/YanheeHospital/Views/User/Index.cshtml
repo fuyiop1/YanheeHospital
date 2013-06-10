@@ -1,5 +1,27 @@
 ﻿@model YanheeHospital.ViewModels.UserIndexViewModel
-
+@section styles{
+    <style type="text/css">
+        label
+        {
+            text-align:right;
+        }
+        .data-view-table-container
+        {
+            padding-top:20px;
+        }
+        .data-view-table th, .data-view-table td
+        {
+            text-align:center;
+            padding:0;
+            border:1px solid #444;
+            height:25px;
+        }
+        .data-view-table tr:nth-child(even) td
+        {
+            background-color:#D3DCE0;
+        }
+    </style>
+}
 <div>
     @using(Html.BeginForm("Create", "User")){
         <table>
@@ -25,18 +47,18 @@
         </table>
     }
 </div>
-<div>
-    <table width="100%">
+<div class="data-view-table-container">
+    <table class="data-view-table" width="100%">
         <tr>
-            <th>序号</th>
-            <th>姓名</th>
-            <th>邮箱</th>
-            <th>密码</th>
-            <th>发送状态</th>
-            <th>发送时间</th>
-            <th>作答状态</th>
-            <th>作答时间</th>
-            <th>作答链接</th>
+            <th width="50">序号</th>
+            <th width="80">姓名</th>
+            <th width="100">邮箱</th>
+            <th width="80">密码</th>
+            <th width="100">发送邮件</th>
+            <th width="145">发送时间</th>
+            <th width="100">查看答案</th>
+            <th width="145">作答时间</th>
+            <th width="100">作答链接</th>
         </tr>
         @for (int i = 0; i < Model.Users.Count; i++)
         {
@@ -49,26 +71,26 @@
                 <td>
                     @if (item.IsInvitationEmailSent == true)
                     {
-                        @Html.ActionLink("Send Again", "SendEmail", new { id = item.Id })
+                        @Html.ActionLink("重新发送", "SendEmail", new { id = item.Id })
                     }
                     else
                     {
-                        @Html.ActionLink("Send Email", "SendEmail", new { id = item.Id })
+                        @Html.ActionLink("发送邮件", "SendEmail", new { id = item.Id })
                     }
                 </td>
                 <td>@item.InvitationEmailSentTime</td>
                 <td>
                     @if (item.IsAnswered == true)
                     {
-                        @Html.ActionLink("View Answer", "ViewAnswer", new { id = item.Id })
+                        @Html.ActionLink("查看答案", "ViewAnswer", new { id = item.Id })
                     }
                     else
                     {
-                        @: No Answer
+                        @: 未提交问卷
                     }
                 </td>
                 <td>@item.AnswerTime</td>
-                <td>@Html.ActionLink("Quick Link", "CollectAnswer", new { id = item.Id, password = item.Password })</td>
+                <td>@Html.ActionLink("作答链接", "CollectAnswer", new { id = item.Id, password = item.Password })</td>
             </tr>
         }
     </table>
