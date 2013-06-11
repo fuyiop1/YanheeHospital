@@ -23,6 +23,8 @@ namespace YanheeHospital
 
             ModelBinders.Binders.Add(typeof(YanheeHospital.Models.UserAnswer), new YanheeHospital.Helpers.UserAnswerModelBinder());
 
+            YanheeHospital.Helpers.DateTimeHelper.SetTimeZoneOffSet();
+            
             YanheeHospital.Helpers.LogHelper.LogFilePath = Server.MapPath("~/log.txt");
             YanheeHospital.Models.YanheeHospitalDbContextInitializer.InitDatabaseSetup();
 

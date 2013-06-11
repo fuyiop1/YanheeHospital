@@ -28,3 +28,11 @@ label
     padding-left:25px;
     background:url(../Images/importantInfoIcon.png) no-repeat left center;
 }
+.table-title-wrapper
+{
+    padding-right:0;
+}
+.message-text-area
+{
+    height:200px;
+}

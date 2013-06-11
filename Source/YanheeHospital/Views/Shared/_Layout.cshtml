@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using YanheeHospital.Helpers
+<!DOCTYPE html>
 <html>
     <head>
         <title>Yanhee Hospital</title>
@@ -8,7 +9,7 @@
     </head>
     <body>
         <div id="header" class="content-wrapper">
-            Yanhee整形医院 您最信赖的选择
+            Yanhee瘦身医院 您最信赖的选择
         </div>
         <div id="body">
             <div class="content-wrapper">
@@ -16,7 +17,7 @@
             </div>
         </div>
         <div id="footer" class="content-wrapper">
-            <p>&copy; @DateTime.Now.Year - Yanhee Hospital</p>
+            <p>&copy; @DateTime.Now.ToDefaultTargetGmtTime().Year - Yanhee.eu</p>
         </div>
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.8.20.min.js")"></script>

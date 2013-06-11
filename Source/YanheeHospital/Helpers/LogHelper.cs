@@ -19,7 +19,7 @@ namespace YanheeHospital.Helpers
             }
             using (var fileWriter = new System.IO.StreamWriter(LogFilePath, true))
             {
-                fileWriter.WriteLine(string.Format("{0}: {1}", DateTime.Now, text));
+                fileWriter.WriteLine(string.Format("{0}: {1}", DateTime.Now.ToDefaultTargetGmtTime(), text));
             }
         }
     }

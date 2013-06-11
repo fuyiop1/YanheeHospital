@@ -46,7 +46,7 @@ namespace YanheeHospital.Controllers
             if (user != null && EmailHelper.SendEmail(user))
             {
                 user.IsInvitationEmailSent = true;
-                user.InvitationEmailSentTime = DateTime.Now;
+                user.InvitationEmailSentTime = DateTime.Now.ToDefaultTargetGmtTime();
                 DbContext.SaveChanges();
             }
             return RedirectToAction("Index");
@@ -84,7 +84,7 @@ namespace YanheeHospital.Controllers
                 if (user != null)
                 {
                     user.IsAnswered = true;
-                    user.AnswerTime = DateTime.Now;
+                    user.AnswerTime = DateTime.Now.ToDefaultTargetGmtTime();
                 }
                 DbContext.SaveChanges();
                 return RedirectToAction("CollectAnswer", new { id = id, password = password });

@@ -10,8 +10,8 @@ namespace YanheeHospital.Models
     public static class YanheeHospitalDbContextInitializer
     {
         public static void InitDatabaseSetup(){
-            var isDropDatabase = ConfigurationManager.AppSettings["IsDropDatabase"];
-            if (isDropDatabase == "true")
+            var isAutoUpdateDatabase = ConfigurationManager.AppSettings["IsAutoUpdateDatabase"];
+            if (isAutoUpdateDatabase == "true")
             {
                 Database.SetInitializer(new DropCreateDatabaseIfModelChanges<YanheeHospitalDbContext>());
             }

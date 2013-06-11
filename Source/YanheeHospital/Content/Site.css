@@ -3,6 +3,7 @@
     background-color: #f6f9ef;
     margin: 0;
     padding: 0;
+    overflow-y:scroll;
 }
 
 body, input, select, textarea
