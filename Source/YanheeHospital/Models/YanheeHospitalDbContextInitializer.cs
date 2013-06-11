@@ -13,7 +13,7 @@ namespace YanheeHospital.Models
             var isAutoUpdateDatabase = ConfigurationManager.AppSettings["IsAutoUpdateDatabase"];
             if (isAutoUpdateDatabase == "true")
             {
-                Database.SetInitializer(new DropCreateDatabaseIfModelChanges<YanheeHospitalDbContext>());
+                Database.SetInitializer(new YanheeHospitalDropCreateDatabaseIfModelChanges());
             }
             else
             {

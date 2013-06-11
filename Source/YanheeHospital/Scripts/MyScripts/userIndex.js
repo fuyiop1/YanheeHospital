@@ -19,4 +19,8 @@
         return tmp;
     }
 
+    $(".user-delete-link").click(function () {
+        return confirm("确认要删除用户[" + $(this).attr("username") + "]?");
+    });
+
 } (window.userIndex = window.userIndex || {}, jQuery));

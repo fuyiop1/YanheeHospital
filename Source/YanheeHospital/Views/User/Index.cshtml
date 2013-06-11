@@ -28,14 +28,17 @@
             </table>
         }
     </div>
-    <div class="float-right form-title">
-        管理您的客户
+    <div class="float-right">
+        <div>@Html.ActionLink("退出", "AdminLogout")</div>
+        <div class="form-title">
+            管理您的客户
+        </div>
     </div>
 </div>
 <div class="data-view-table-container">
     <table class="data-view-table" width="100%">
         <tr>
-            <th width="50">序号</th>
+            <th width="40">序号</th>
             <th width="80">姓名</th>
             <th width="100">邮箱</th>
             <th width="80">密码</th>
@@ -44,6 +47,7 @@
             <th width="90">查看答案</th>
             <th width="160">作答时间</th>
             <th width="90">作答链接</th>
+            <th width="40">删除</th>
         </tr>
         @for (int i = 0; i < Model.Users.Count; i++)
         {
@@ -76,6 +80,7 @@
                 </td>
                 <td>@item.AnswerTime</td>
                 <td>@Html.ActionLink("作答链接", "CollectAnswer", new { id = item.Id, password = item.Password }, new { target = "_blank" })</td>
+                <td>@Html.ActionLink("删除", "Delete", new { id = item.Id }, new { @class="user-delete-link", username = item.Name })</td>
             </tr>
         }
     </table>

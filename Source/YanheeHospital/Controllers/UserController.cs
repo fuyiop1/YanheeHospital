@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using YanheeHospital.Models;
 using YanheeHospital.ViewModels;
 using YanheeHospital.Helpers;
+using System.Web.Security;
 
 namespace YanheeHospital.Controllers
 {
@@ -13,6 +14,70 @@ namespace YanheeHospital.Controllers
     {
         private YanheeHospitalDbContext DbContext = new YanheeHospitalDbContext();
 
+        public ActionResult AdminLogin()
+        {
+            var viewModel = new AdminLoginViewModel();
+            var admin = new Admin();
+
+            var rememberedAccountCookie = Request.Cookies["RemeberedAccount"];
+            if (rememberedAccountCookie != null && !string.IsNullOrEmpty(rememberedAccountCookie.Value))
+            {
+                admin.UserName = rememberedAccountCookie.Value;
+                viewModel.IsRememberAccount = true;
+            }
+
+            viewModel.Admin = admin;
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult AdminLogin(AdminLoginViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var admin = DbContext.Admins.FirstOrDefault(x => x.UserName == viewModel.Admin.UserName);
+                if (admin != null)
+                {
+                    if (admin.Password == viewModel.Admin.Password)
+                    {
+                        FormsAuthentication.SetAuthCookie(admin.UserName, false);
+
+                        var newRememberedAccountCookie = new HttpCookie("RemeberedAccount", admin.UserName);
+                        newRememberedAccountCookie.Expires = DateTime.Now.AddMonths(1);
+                        if (viewModel.IsRememberAccount)
+                        {
+                            Response.Cookies.Remove("RemeberedAccount");
+                            Response.Cookies.Add(newRememberedAccountCookie);
+                        }
+                        else
+                        {
+                            Response.Cookies.Remove("RemeberedAccount");
+                            newRememberedAccountCookie.Expires = DateTime.Now.AddDays(-1);
+                            Response.Cookies.Add(newRememberedAccountCookie);
+                        }
+
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Admin.Password", "密码错误");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("Admin.UserName", "用户名不存在");
+                }
+            }
+            return View(viewModel);
+        }
+
+        public ActionResult AdminLogout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("AdminLogin");
+        }
+
+        [Authorize]
         public ActionResult Index()
         {
             var viewModel = new UserIndexViewModel();
@@ -21,6 +86,7 @@ namespace YanheeHospital.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Create(UserIndexViewModel viewModel)
         {
@@ -40,6 +106,24 @@ namespace YanheeHospital.Controllers
             }
         }
 
+        [Authorize]
+        public ActionResult Delete(int id)
+        {
+            var userAnswer = DbContext.UserAnswers.Find(id);
+            if (userAnswer != null)
+            {
+                DbContext.UserAnswers.Remove(userAnswer);
+            }
+            var user = DbContext.Users.Find(id);
+            if (user != null)
+            {
+                DbContext.Users.Remove(user);
+            }
+            DbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [Authorize]
         public ActionResult SendEmail(int id)
         {
             var user = DbContext.Users.Find(id);
@@ -96,6 +180,7 @@ namespace YanheeHospital.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult ViewAnswer(int id)
         {
             var viewModel = new UserCollectAnswerViewModel();

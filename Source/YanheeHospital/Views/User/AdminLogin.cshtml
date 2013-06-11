@@ -1,0 +1,30 @@
+﻿@model YanheeHospital.ViewModels.AdminLoginViewModel
+
+@section styles{
+    <link type="text/css" rel="Stylesheet" href="@Url.Content("~/Content/AdminLogin.css")" />
+}
+
+@using (Html.BeginForm("AdminLogin", "User"))
+{
+    <table>
+        <tr>
+            <td><label>用户名</label></td>
+            <td>@Html.EditorFor(x => x.Admin.UserName)</td>
+            <td>@Html.ValidationMessageFor(x => x.Admin.UserName)</td>
+        </tr>
+        <tr>
+            <td><label>密码</label></td>
+            <td>@Html.PasswordFor(x => x.Admin.Password)</td>
+            <td>@Html.ValidationMessageFor(x => x.Admin.Password)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>@Html.CheckBoxFor(x => x.IsRememberAccount) 记住用户名</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><input type="submit" value="登录" /></td>
+        </tr>
+    </table>
+}
