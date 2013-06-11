@@ -10,9 +10,13 @@ label
 {
     background-color: #f2f5ef;
 }
+.sub-group-row td
+{
+    border-top: 1px dashed #b2dfdc;
+}
 .group-row td
 {
-    border-top: 1px dashed #aaa;
+    border-top: 1px dashed #999;
 }
 .important-info, .important-info label
 {

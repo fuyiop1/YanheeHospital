@@ -51,7 +51,7 @@ namespace YanheeHospital.Models
 
         public bool HaveSeriousDesease { get; set; }
 
-        //public string SeriousDeseaseDetail { get; set; }
+        public string SeriousDeseaseDetail { get; set; }
 
         public bool HavePreviousDietMedicine { get; set; }
 
@@ -63,11 +63,11 @@ namespace YanheeHospital.Models
 
         public bool IsPreviousDietMedicineHaveSideEffect { get; set; }
 
-        //public string PreviousDietMedicineSideEffectDetail { get; set; }
+        public string PreviousDietMedicineSideEffectDetail { get; set; }
 
         public bool IsHavingOtherMedicine { get; set; }
 
-        //public string OtherMedicineDetail { get; set; }
+        public string OtherMedicineDetail { get; set; }
 
         public bool IsSmoking { get; set; }
 

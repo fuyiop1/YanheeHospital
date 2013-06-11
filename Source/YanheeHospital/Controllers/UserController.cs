@@ -153,6 +153,19 @@ namespace YanheeHospital.Controllers
                     userAnswer.AllergyDetail = null;
                 }
 
+                if (userAnswer.HaveSeriousDesease)
+                {
+                    if (string.IsNullOrWhiteSpace(userAnswer.SeriousDeseaseDetail))
+                    {
+                        ModelState.AddModelError("UserAnswer.SeriousDeseaseDetail", "请输入重大疾病描述");
+                        result = false;
+                    }
+                }
+                else
+                {
+                    userAnswer.SeriousDeseaseDetail = null;
+                }
+
                 if (userAnswer.HavePreviousDietMedicine)
                 {
                     if (string.IsNullOrWhiteSpace(userAnswer.PreviousDietMedicineDetail))
@@ -170,6 +183,18 @@ namespace YanheeHospital.Controllers
                         ModelState.AddModelError("UserAnswer.PreviousDietMedicineStopTime", "请输入已停药多久");
                         result = false;
                     }
+                    if (userAnswer.IsPreviousDietMedicineHaveSideEffect)
+                    {
+                        if (string.IsNullOrWhiteSpace(userAnswer.PreviousDietMedicineSideEffectDetail))
+                        {
+                            ModelState.AddModelError("UserAnswer.PreviousDietMedicineSideEffectDetail", "请输入副作用描述");
+                            result = false;
+                        }
+                    }
+                    else
+                    {
+                        userAnswer.PreviousDietMedicineSideEffectDetail = null;
+                    }
                 }
                 else
                 {
@@ -177,6 +202,20 @@ namespace YanheeHospital.Controllers
                     userAnswer.PreviousDietMedicineDuringTime = null;
                     userAnswer.PreviousDietMedicineStopTime = null;
                     userAnswer.IsPreviousDietMedicineHaveSideEffect = false;
+                    userAnswer.PreviousDietMedicineSideEffectDetail = null;
+                }
+
+                if (userAnswer.IsHavingOtherMedicine)
+                {
+                    if (string.IsNullOrWhiteSpace(userAnswer.OtherMedicineDetail))
+                    {
+                        ModelState.AddModelError("UserAnswer.OtherMedicineDetail", "请输入药物名称与描述");
+                        result = false;
+                    }
+                }
+                else
+                {
+                    userAnswer.OtherMedicineDetail = null;
                 }
 
             }

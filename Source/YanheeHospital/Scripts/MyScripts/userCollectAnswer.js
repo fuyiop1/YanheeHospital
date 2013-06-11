@@ -12,8 +12,16 @@
             if (itemValue == "true") {
                 underControls.show(1000);
             } else {
+                underControls.find("input:radio[value]='false'").click();
+                underControls.find("input:text").val("");
                 underControls.hide();
             }
+            /*
+            while (underControls.find("input[data-control]").size() > 0) {
+            var subControlName = underControls.find("input[data-control]").data("control");
+            var subUnderControls = $("tr[data-under-control='" + subControlName + "']");
+            }
+            */
         }
 
         $("input:radio[data-control]:checked").each(function () {

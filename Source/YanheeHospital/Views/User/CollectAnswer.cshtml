@@ -162,11 +162,16 @@ else
                     </td>
                     <td>
                         <div class="radio-container">
-                            <input type="radio" name="UserAnswer.HaveSeriousDesease" value="true" @(Model.UserAnswer.HaveSeriousDesease ? "checked='checked'" : string.Empty) /> 是
-                            <input type="radio" name="UserAnswer.HaveSeriousDesease" value="false" @(!Model.UserAnswer.HaveSeriousDesease ? "checked='checked'" : string.Empty) /> 否
+                            <input data-control="HaveSeriousDesease" type="radio" name="UserAnswer.HaveSeriousDesease" value="true" @(Model.UserAnswer.HaveSeriousDesease ? "checked='checked'" : string.Empty) /> 是
+                            <input data-control="HaveSeriousDesease" type="radio" name="UserAnswer.HaveSeriousDesease" value="false" @(!Model.UserAnswer.HaveSeriousDesease ? "checked='checked'" : string.Empty) /> 否
                         </div>
                     </td>
                     <td></td>
+                </tr>
+                <tr data-under-control="HaveSeriousDesease">
+                    <td><label>重大疾病描述</label></td>
+                    <td>@Html.TextBoxFor(x => x.UserAnswer.SeriousDeseaseDetail)</td>
+                    <td>@Html.ValidationMessageFor(x => x.UserAnswer.SeriousDeseaseDetail)</td>
                 </tr>
                 <tr class="group-row">
                     <td><label>是否曾服用过减肥药</label></td>
@@ -193,27 +198,37 @@ else
                     <td>@Html.TextBoxFor(x => x.UserAnswer.PreviousDietMedicineStopTime)</td>
                     <td>@Html.ValidationMessageFor(x => x.UserAnswer.PreviousDietMedicineStopTime)</td>
                 </tr>
-                <tr data-under-control="HavePreviousDietMedicine">
+                <tr class="sub-group-row" data-under-control="HavePreviousDietMedicine">
                     <td><label>服药期间是否有不良的副作用</label></td>
                     <td>
                         <div class="radio-container">
-                            <input type="radio" name="UserAnswer.IsPreviousDietMedicineHaveSideEffect" value="true" @(Model.UserAnswer.IsPreviousDietMedicineHaveSideEffect ? "checked='checked'" : string.Empty) /> 是
-                            <input type="radio" name="UserAnswer.IsPreviousDietMedicineHaveSideEffect" value="false" @(!Model.UserAnswer.IsPreviousDietMedicineHaveSideEffect ? "checked='checked'" : string.Empty) /> 否
+                            <input data-control="IsPreviousDietMedicineHaveSideEffect" type="radio" name="UserAnswer.IsPreviousDietMedicineHaveSideEffect" value="true" @(Model.UserAnswer.IsPreviousDietMedicineHaveSideEffect ? "checked='checked'" : string.Empty) /> 是
+                            <input data-control="IsPreviousDietMedicineHaveSideEffect" type="radio" name="UserAnswer.IsPreviousDietMedicineHaveSideEffect" value="false" @(!Model.UserAnswer.IsPreviousDietMedicineHaveSideEffect ? "checked='checked'" : string.Empty) /> 否
                         </div>
                     </td>
                     <td></td>
+                </tr>
+                <tr data-under-control="IsPreviousDietMedicineHaveSideEffect">
+                    <td><label>不良副作用描述</label></td>
+                    <td>@Html.TextBoxFor(x => x.UserAnswer.PreviousDietMedicineSideEffectDetail)</td>
+                    <td>@Html.ValidationMessageFor(x => x.UserAnswer.PreviousDietMedicineSideEffectDetail)</td>
                 </tr>
                 <tr class="group-row">
                     <td><label>是否长期服用其他的药物</label></td>
                     <td>
                         <div class="radio-container">
-                            <input type="radio" name="UserAnswer.IsHavingOtherMedicine" value="true" @(Model.UserAnswer.IsHavingOtherMedicine ? "checked='checked'" : string.Empty) /> 是
-                            <input type="radio" name="UserAnswer.IsHavingOtherMedicine" value="false" @(!Model.UserAnswer.IsHavingOtherMedicine ? "checked='checked'" : string.Empty) /> 否
+                            <input data-control="IsHavingOtherMedicine" type="radio" name="UserAnswer.IsHavingOtherMedicine" value="true" @(Model.UserAnswer.IsHavingOtherMedicine ? "checked='checked'" : string.Empty) /> 是
+                            <input data-control="IsHavingOtherMedicine" type="radio" name="UserAnswer.IsHavingOtherMedicine" value="false" @(!Model.UserAnswer.IsHavingOtherMedicine ? "checked='checked'" : string.Empty) /> 否
                         </div>
                     </td>
                     <td></td>
                 </tr>
-                <tr>
+                <tr data-under-control="IsHavingOtherMedicine">
+                    <td><label>其他药物名称与描述</label></td>
+                    <td>@Html.TextBoxFor(x => x.UserAnswer.OtherMedicineDetail)</td>
+                    <td>@Html.ValidationMessageFor(x => x.UserAnswer.OtherMedicineDetail)</td>
+                </tr>
+                <tr class="group-row">
                     <td><label>是否抽烟/喝酒</label></td>
                     <td>
                         <div class="clear-fix">

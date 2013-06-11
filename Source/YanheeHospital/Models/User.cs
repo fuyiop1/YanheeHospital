@@ -14,7 +14,7 @@ namespace YanheeHospital.Models
         public string Name { get; set; }
 
         [Required(ErrorMessage = "请输入邮箱")]
-        [DataType(DataType.EmailAddress, ErrorMessage="请输入正确的邮箱")]
+        [RegularExpression(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "请输入正确的邮箱")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "请输入密码")]
