@@ -28,9 +28,9 @@ else
             @Html.HiddenFor(x => x.User.Name)
             <table width="100%">
                 <tr>
-                    <td>&nbsp;</td>
-                    <td class="table-title-wrapper"><h2>然禧减肥代购（新客户填写）</h2></td>
-                    <td class="clear-fix">
+                    <td width="290">&nbsp;</td>
+                    <td width="310" class="table-title-wrapper"><h2>然禧减肥代购（新客户填写）</h2></td>
+                    <td width="360" class="clear-fix">
                         @if (Model.IsAdminViewAnswer)
                         {
                             @: &nbsp;
@@ -43,12 +43,48 @@ else
                         }
                     </td>
                 </tr>
-                <tr>
-                    <td width="250"><label>邮寄地址</label></td>
-                    <td width="310">@Html.TextBoxFor(x => x.UserAnswer.PostAddress)</td>
-                    <td>@Html.ValidationMessageFor(x => x.UserAnswer.PostAddress)</td>
+                <tr class="group-row">
+                    <td><label>自取/邮寄</label></td>
+                    <td>
+                        <div class="radio-container">
+                            <input data-control="IsNeedPost" type="radio" name="UserAnswer.IsNeedPost" value="false" @(!Model.UserAnswer.IsNeedPost ? "checked='checked'" : string.Empty) /> 自取（仅限巴黎）
+                            <input data-control="IsNeedPost" type="radio" name="UserAnswer.IsNeedPost" value="true" @(Model.UserAnswer.IsNeedPost ? "checked='checked'" : string.Empty) /> 邮寄
+                        </div>
+                    </td>
+                    <td></td>
                 </tr>
-                <tr>
+                <tr class="sub-group-row" data-under-control="IsNeedPost">
+                    <td><label>邮寄地址</label></td>
+                    <td>
+                        <div class="clear-fix">
+                            <div class="float-left shorter-text-box-wrapper">
+                                @Html.TextBoxFor(x => x.UserAnswer.Address.Street)
+                                <div class="textbox-hint-wrapper">街道地址</div>
+                            </div>
+                        </div>
+                        <div class="clear-fix">
+                            <div class="float-left shorter-text-box-wrapper">
+                                @Html.TextBoxFor(x => x.UserAnswer.Address.PostCode, new { @class = "shorter" })
+                                <div class="textbox-hint-wrapper">邮编</div>
+                            </div>
+                            <div class="float-left shorter-text-box-wrapper">
+                                @Html.TextBoxFor(x => x.UserAnswer.Address.City, new { @class = "shorter" })
+                                <div class="textbox-hint-wrapper">城市</div>
+                            </div>
+                            <div class="float-left shorter-text-box-wrapper">
+                                @Html.TextBoxFor(x => x.UserAnswer.Address.Country, new { @class = "shorter" })
+                                <div class="textbox-hint-wrapper">国家</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        @Html.ValidationMessageFor(x => x.UserAnswer.Address.Street)<br />
+                        @Html.ValidationMessageFor(x => x.UserAnswer.Address.PostCode)<br />
+                        @Html.ValidationMessageFor(x => x.UserAnswer.Address.City)<br />
+                        @Html.ValidationMessageFor(x => x.UserAnswer.Address.Country)
+                    </td>
+                </tr>
+                <tr class="group-row">
                     <td><label>电话</label></td>
                     <td>@Html.TextBoxFor(x => x.UserAnswer.Telephone)</td>
                     <td>@Html.ValidationMessageFor(x => x.UserAnswer.Telephone)</td>

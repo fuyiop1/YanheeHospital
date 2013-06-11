@@ -10,14 +10,21 @@ namespace YanheeHospital.Models
 {
     public class UserAnswer
     {
+
+        public UserAnswer()
+        {
+            Address = new UserAddress();
+        }
+
         [Key]
         [ForeignKey("User")]
         public int UserId { get; set; }
 
         public User User { get; set; }
 
-        [Required(ErrorMessage = "请输入邮寄地址")]
-        public string PostAddress { get; set; }
+        public bool IsNeedPost { get; set; }
+
+        public UserAddress Address { get; set; }
 
         [Required(ErrorMessage = "请输入电话号码")]
         [DataType(DataType.PhoneNumber, ErrorMessage = "请输入正确格式的电话号码")]
@@ -91,6 +98,15 @@ namespace YanheeHospital.Models
         [Required(ErrorMessage = "请输入您想对医生说的话")]
         public string MessageToDoctor { get; set; }
 
+    }
+
+    [ComplexType]
+    public class UserAddress
+    {
+        public string Street { get; set; }
+        public string PostCode { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
     }
 
     public enum Gender

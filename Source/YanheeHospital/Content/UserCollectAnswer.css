@@ -2,6 +2,10 @@
 {
     width: 120px;
 }
+input.shorter
+{
+    width: 90px;
+}
 label
 {
     text-align: right;
@@ -39,4 +43,16 @@ label
 .message-text-area
 {
     height:200px;
+}
+.shorter-text-box-wrapper
+{
+    position:relative;
+    padding-right: 3px;
+}
+.textbox-hint-wrapper
+{
+    position:absolute;
+    right:7px;
+    top:12px;
+    color:#ccc;
 }

@@ -65,6 +65,7 @@ namespace YanheeHospital.Controllers
                 {
                     UserId = id,
                     ChineseName = user.Name,
+                    IsNeedPost = true,
                     EatMostDinner = (int) Dinner.Lunch
                 };
             }
@@ -140,6 +141,8 @@ namespace YanheeHospital.Controllers
             if (userAnswer != null)
             {
 
+                result = ValidateUserAnswerAddress(userAnswer, result);
+
                 if (userAnswer.IsAllergic)
                 {
                     if (string.IsNullOrWhiteSpace(userAnswer.AllergyDetail))
@@ -166,44 +169,7 @@ namespace YanheeHospital.Controllers
                     userAnswer.SeriousDeseaseDetail = null;
                 }
 
-                if (userAnswer.HavePreviousDietMedicine)
-                {
-                    if (string.IsNullOrWhiteSpace(userAnswer.PreviousDietMedicineDetail))
-                    {
-                        ModelState.AddModelError("UserAnswer.PreviousDietMedicineDetail", "请输入减肥药名称");
-                        result = false;
-                    }
-                    if (string.IsNullOrWhiteSpace(userAnswer.PreviousDietMedicineDuringTime))
-                    {
-                        ModelState.AddModelError("UserAnswer.PreviousDietMedicineDuringTime", "请输入服用时间");
-                        result = false;
-                    }
-                    if (string.IsNullOrWhiteSpace(userAnswer.PreviousDietMedicineStopTime))
-                    {
-                        ModelState.AddModelError("UserAnswer.PreviousDietMedicineStopTime", "请输入已停药多久");
-                        result = false;
-                    }
-                    if (userAnswer.IsPreviousDietMedicineHaveSideEffect)
-                    {
-                        if (string.IsNullOrWhiteSpace(userAnswer.PreviousDietMedicineSideEffectDetail))
-                        {
-                            ModelState.AddModelError("UserAnswer.PreviousDietMedicineSideEffectDetail", "请输入副作用描述");
-                            result = false;
-                        }
-                    }
-                    else
-                    {
-                        userAnswer.PreviousDietMedicineSideEffectDetail = null;
-                    }
-                }
-                else
-                {
-                    userAnswer.PreviousDietMedicineDetail = null;
-                    userAnswer.PreviousDietMedicineDuringTime = null;
-                    userAnswer.PreviousDietMedicineStopTime = null;
-                    userAnswer.IsPreviousDietMedicineHaveSideEffect = false;
-                    userAnswer.PreviousDietMedicineSideEffectDetail = null;
-                }
+                result = ValidateUserAnswerPreviousDietMedicine(userAnswer, result);
 
                 if (userAnswer.IsHavingOtherMedicine)
                 {
@@ -220,6 +186,88 @@ namespace YanheeHospital.Controllers
 
             }
 
+            return result;
+        }
+
+        private bool ValidateUserAnswerAddress(UserAnswer userAnswer, bool result)
+        {
+            if (userAnswer.Address != null)
+            {
+                if (userAnswer.IsNeedPost)
+                {
+                    if (string.IsNullOrWhiteSpace(userAnswer.Address.Street))
+                    {
+                        ModelState.AddModelError("UserAnswer.Address.Street", "请输入街道地址");
+                        result = false;
+                    }
+                    if (string.IsNullOrWhiteSpace(userAnswer.Address.PostCode))
+                    {
+                        ModelState.AddModelError("UserAnswer.Address.PostCode", "请输入邮编");
+                        result = false;
+                    }
+                    if (string.IsNullOrWhiteSpace(userAnswer.Address.City))
+                    {
+                        ModelState.AddModelError("UserAnswer.Address.City", "请输入城市");
+                        result = false;
+                    }
+                    if (string.IsNullOrWhiteSpace(userAnswer.Address.Country))
+                    {
+                        ModelState.AddModelError("UserAnswer.Address.Country", "请输入国家");
+                        result = false;
+                    }
+                }
+                else
+                {
+                    userAnswer.Address.Street = null;
+                    userAnswer.Address.PostCode = null;
+                    userAnswer.Address.City = null;
+                    userAnswer.Address.Country = null;
+                }
+
+            }
+            return result;
+        }
+
+        private bool ValidateUserAnswerPreviousDietMedicine(UserAnswer userAnswer, bool result)
+        {
+            if (userAnswer.HavePreviousDietMedicine)
+            {
+                if (string.IsNullOrWhiteSpace(userAnswer.PreviousDietMedicineDetail))
+                {
+                    ModelState.AddModelError("UserAnswer.PreviousDietMedicineDetail", "请输入减肥药名称");
+                    result = false;
+                }
+                if (string.IsNullOrWhiteSpace(userAnswer.PreviousDietMedicineDuringTime))
+                {
+                    ModelState.AddModelError("UserAnswer.PreviousDietMedicineDuringTime", "请输入服用时间");
+                    result = false;
+                }
+                if (string.IsNullOrWhiteSpace(userAnswer.PreviousDietMedicineStopTime))
+                {
+                    ModelState.AddModelError("UserAnswer.PreviousDietMedicineStopTime", "请输入已停药多久");
+                    result = false;
+                }
+                if (userAnswer.IsPreviousDietMedicineHaveSideEffect)
+                {
+                    if (string.IsNullOrWhiteSpace(userAnswer.PreviousDietMedicineSideEffectDetail))
+                    {
+                        ModelState.AddModelError("UserAnswer.PreviousDietMedicineSideEffectDetail", "请输入副作用描述");
+                        result = false;
+                    }
+                }
+                else
+                {
+                    userAnswer.PreviousDietMedicineSideEffectDetail = null;
+                }
+            }
+            else
+            {
+                userAnswer.PreviousDietMedicineDetail = null;
+                userAnswer.PreviousDietMedicineDuringTime = null;
+                userAnswer.PreviousDietMedicineStopTime = null;
+                userAnswer.IsPreviousDietMedicineHaveSideEffect = false;
+                userAnswer.PreviousDietMedicineSideEffectDetail = null;
+            }
             return result;
         }
 

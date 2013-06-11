@@ -5,12 +5,12 @@
             var jqueryItem = $(this);
             var str = $.trim(jqueryItem.val());
             if (str == "") {
-                $(this).val(userIndex.getRandomString(8));
+                $(this).val(getRandomString(8));
             }
         });
     }
 
-    userIndex.getRandomString = function (l) {
+    function getRandomString(l) {
         var x = "123456789poiuytrewqasdfghjklmnbvcxzQWERTYUIPLKJHGFDSAZXCVBNM";
         var tmp = "";
         for (var i = 0; i < l; i++) {
