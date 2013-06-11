@@ -30,5 +30,31 @@ namespace YanheeHospital
 
         }
 
+        protected void Application_AcquireRequestState(object sender, EventArgs e)
+        {
+            var path = Request.Url.AbsolutePath;
+            if (path == "/")
+            {
+                Response.Redirect("User/AdminLogin");
+            }
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception exception = Server.GetLastError();
+
+            YanheeHospital.Helpers.LogHelper.WriteLog(exception.ToString());
+
+            Response.Clear();
+
+            var routeData = new RouteData();
+            routeData.Values.Add("controller", "Error");
+            routeData.Values.Add("action", "Error");
+            Server.ClearError();
+
+            IController errorController = new YanheeHospital.Controllers.ErrorController();
+            errorController.Execute(new RequestContext(new HttpContextWrapper(this.Context), routeData));
+        }
+
     }
 }

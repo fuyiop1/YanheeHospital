@@ -42,11 +42,11 @@
             <th width="80">姓名</th>
             <th width="100">邮箱</th>
             <th width="80">密码</th>
-            <th width="90">发送邮件</th>
-            <th width="160">发送时间</th>
+            <th width="85">发送邮件</th>
+            <th width="165">发送时间</th>
             <th width="90">查看答案</th>
-            <th width="160">作答时间</th>
-            <th width="90">作答链接</th>
+            <th width="165">作答时间</th>
+            <th width="85">作答链接</th>
             <th width="40">删除</th>
         </tr>
         @for (int i = 0; i < Model.Users.Count; i++)
@@ -67,7 +67,7 @@
                         @Html.ActionLink("发送邮件", "SendEmail", new { id = item.Id })
                     }
                 </td>
-                <td>@item.InvitationEmailSentTime</td>
+                <td class="long-time-wrapper">@item.InvitationEmailSentTime</td>
                 <td>
                     @if (item.IsAnswered == true)
                     {
@@ -78,7 +78,7 @@
                         @: 未提交问卷
                     }
                 </td>
-                <td>@item.AnswerTime</td>
+                <td class="long-time-wrapper">@item.AnswerTime</td>
                 <td>@Html.ActionLink("作答链接", "CollectAnswer", new { id = item.Id, password = item.Password }, new { target = "_blank" })</td>
                 <td>@Html.ActionLink("删除", "Delete", new { id = item.Id }, new { @class="user-delete-link", username = item.Name })</td>
             </tr>

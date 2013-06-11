@@ -30,7 +30,6 @@ namespace YanheeHospital.Models
         [DataType(DataType.PhoneNumber, ErrorMessage = "请输入正确格式的电话号码")]
         public string Telephone { get; set; }
 
-        [Required(ErrorMessage = "请输入诊疗卡号")]
         public string TherapyCardId { get; set; }
 
         [Required(ErrorMessage = "请输入中文名字")]

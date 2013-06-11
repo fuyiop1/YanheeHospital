@@ -17,6 +17,7 @@ namespace YanheeHospital.Controllers
         public ActionResult AdminLogin()
         {
             var viewModel = new AdminLoginViewModel();
+            viewModel.ReturnUrl = Request["ReturnUrl"];
             var admin = new Admin();
 
             var rememberedAccountCookie = Request.Cookies["RemeberedAccount"];
@@ -55,8 +56,14 @@ namespace YanheeHospital.Controllers
                             newRememberedAccountCookie.Expires = DateTime.Now.AddDays(-1);
                             Response.Cookies.Add(newRememberedAccountCookie);
                         }
-
-                        return RedirectToAction("Index");
+                        if (string.IsNullOrWhiteSpace(viewModel.ReturnUrl))
+                        {
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            return Redirect(viewModel.ReturnUrl);
+                        }
                     }
                     else
                     {

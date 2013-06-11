@@ -47,7 +47,7 @@ else
                     <td><label>自取/邮寄</label></td>
                     <td>
                         <div class="radio-container">
-                            <input data-control="IsNeedPost" type="radio" name="UserAnswer.IsNeedPost" value="false" @(!Model.UserAnswer.IsNeedPost ? "checked='checked'" : string.Empty) /> 自取（仅限巴黎）
+                            <input data-control="IsNeedPost" type="radio" name="UserAnswer.IsNeedPost" value="false" @(!Model.UserAnswer.IsNeedPost ? "checked='checked'" : string.Empty) /> 自取（仅限巴黎，布鲁塞尔）
                             <input data-control="IsNeedPost" type="radio" name="UserAnswer.IsNeedPost" value="true" @(Model.UserAnswer.IsNeedPost ? "checked='checked'" : string.Empty) /> 邮寄
                         </div>
                     </td>
@@ -324,7 +324,7 @@ else
                             <label>想和医生说些什么</label>
                         </td>
                         <td>
-                            @Model.UserAnswer.MessageToDoctor
+                            @Html.TextAreaFor(x => x.UserAnswer.MessageToDoctor, new { @class = "auto-height" })
                         </td>
                     }
                     else
@@ -332,16 +332,16 @@ else
                         <td class="important-info" title="这一栏很重要，因为不能亲自到医院去只能代购拿表格给医生。除了上面的信息就全靠你自己的描述了，医生会根据你的描述开药。主要填写你的生活习惯，比如作息时间规律不规律，会不会定期做一些运动，饮食习惯（有些女孩子胃不太好的都可以写上）等等。如果有重大病史一定要写明白，特别是心脏，血糖，血压类的以及曾经的病史。这直接影响我们吃到的药的种类~~并写清是否痊愈。">
                             <label>想和医生说些什么</label>
                         </td>
-                        <td>@Html.TextAreaFor(x => x.UserAnswer.MessageToDoctor, new { @class="message-text-area" })</td>
+                        <td>@Html.TextAreaFor(x => x.UserAnswer.MessageToDoctor, new { @class = "message-text-area" })</td>
                     }
-                    <td>@Html.ValidationMessageFor(x => x.UserAnswer.MessageToDoctor)</td>
+                    <td class="long-text-wrapper">@Html.ValidationMessageFor(x => x.UserAnswer.MessageToDoctor)</td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
                         @if (Model.IsAdminViewAnswer)
                         {
-                            @Html.ActionLink("返回", "Index")
+                            <input id="return-button" data-target-url="@Url.Action("Index")" type="button" value="返回" />
                         }
                         else
                         {

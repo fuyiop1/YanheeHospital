@@ -8,6 +8,7 @@ namespace YanheeHospital.ViewModels
 {
     public class AdminLoginViewModel
     {
+        public string ReturnUrl { get; set; }
         public Admin Admin { get; set; }
         public bool IsRememberAccount { get; set; }
     }

@@ -56,3 +56,10 @@ label
     top:12px;
     color:#ccc;
 }
+.auto-height
+{
+    border:none;
+    padding:0;
+    width:315px;
+    overflow-y:visible;
+}
