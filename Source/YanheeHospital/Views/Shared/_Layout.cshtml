@@ -3,6 +3,13 @@
 <html>
     <head>
         <title>Yanhee Hospital</title>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.8.20.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-2.1.0.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/modernizr-2.5.3.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.colorbox-min.js")"></script>
         <link type="text/css" rel="Stylesheet" href="@Url.Content("~/Content/Site.css")" />
         <link type="text/css" rel="Stylesheet" href="@Url.Content("~/Content/colorbox/colorbox.css")" />
         @RenderSection("styles", required: false)
@@ -19,13 +26,6 @@
         <div id="footer" class="content-wrapper">
             <p>&copy; @DateTime.Now.ToDefaultTargetGmtTime().Year - Yanhee.eu</p>
         </div>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.8.20.min.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-2.1.0.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/modernizr-2.5.3.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.colorbox-min.js")"></script>
         @RenderSection("scripts", required: false)
     </body>
 </html>
